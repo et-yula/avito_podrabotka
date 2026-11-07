@@ -1,0 +1,29 @@
+
+# Исходные данные
+/data/raw/*
+!/data/raw/.gitkeep
+
+# Подготовленные данные
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Архивы
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE и системные файлы
+.vscode/
+.idea/
+.DS_Store

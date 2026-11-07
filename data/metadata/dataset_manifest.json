@@ -1,0 +1,44 @@
+{
+  "synthetic": true,
+  "seed": 20261019,
+  "period_start": "2026-04-01T00:00:00+03:00",
+  "period_end_exclusive": "2026-10-01T00:00:00+03:00",
+  "snapshot_at": "2026-10-01T00:00:00+03:00",
+  "planned_shift_horizon_end_exclusive": "2026-10-08T00:00:00+03:00",
+  "encoding": "utf-8-sig",
+  "separator": ",",
+  "decimal": ".",
+  "timezone": "Europe/Moscow",
+  "tables": {
+    "dm_gigs_performers": {
+      "rows": 24300,
+      "columns": 55,
+      "size_bytes": 13015994
+    },
+    "dm_gigs_shifts": {
+      "rows": 56396,
+      "columns": 48,
+      "size_bytes": 21463595
+    },
+    "dm_gigs_client_outlets": {
+      "rows": 655,
+      "columns": 46,
+      "size_bytes": 348800
+    },
+    "dm_gigs_bookings": {
+      "rows": 83625,
+      "columns": 49,
+      "size_bytes": 36223659
+    },
+    "dm_gigs_payments": {
+      "rows": 70857,
+      "columns": 34,
+      "size_bytes": 29863599
+    },
+    "dm_gigs_events": {
+      "rows": 1515550,
+      "columns": 40,
+      "size_bytes": 436301346
+    }
+  }
+}

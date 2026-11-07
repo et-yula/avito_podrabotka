@@ -1,0 +1,273 @@
+﻿table_name,column_name,data_type,nullable,description,notes
+dm_gigs_performers,performer_id,string,no,Уникальный идентификатор исполнителя.,Ключ dm_gigs_performers. Идентификатор хранится как строка.
+dm_gigs_performers,display_name,string,no,Вымышленное отображаемое имя исполнителя.,Не содержит реальных персональных данных.
+dm_gigs_performers,registered_at,timestamp,no,Момент регистрации исполнителя в сервисе.,Может быть раньше 2026-04-01. История регистрации не ограничена шестью месяцами фактов.
+dm_gigs_performers,registration_date,date,no,Календарная дата регистрации.,Дата registered_at в часовом поясе +03:00.
+dm_gigs_performers,city_id,string,no,"Код города, к которому относится запись.",C01 Москва; C02 Санкт-Петербург; C03 Казань; C04 Нижний Новгород; C05 Воронеж; C06 Краснодар.
+dm_gigs_performers,city,string,no,Название города.,Соответствует city_id.
+dm_gigs_performers,region,string,no,Название субъекта РФ.,Географический атрибут города.
+dm_gigs_performers,home_district_code,string,yes,Условный код домашнего района исполнителя.,"NULL — район не указан. Синтетический классификатор, не официальный адресный справочник."
+dm_gigs_performers,age_years,int,yes,Возраст исполнителя в полных годах.,Возраст на срез данных; NULL — возраст не указан.
+dm_gigs_performers,gender,string,no,Указанный в профиле пол.,female — женский; male — мужской; not_specified — не указан.
+dm_gigs_performers,education_level,string,no,Указанный уровень образования.,secondary — среднее общее; vocational — среднее профессиональное; higher — высшее; not_specified — не указан.
+dm_gigs_performers,employment_status,string,no,"Основная занятость, указанная в профиле.",employed — работает; student — учится; between_jobs — ищет работу; self_employed — самозанятый; not_specified — не указана.
+dm_gigs_performers,preferred_role,string,no,Предпочтительный вид работы.,order_picker — сборщик заказов; shelf_stocker — выкладка; packer — упаковка; kitchen_assistant — помощь на кухне; any — любой.
+dm_gigs_performers,preferred_shift_period,string,no,Предпочтительное время смен.,morning — утро; evening — вечер; any — любое.
+dm_gigs_performers,preferred_radius_km,int,no,"Указанный радиус поиска смен, км.",Параметр профиля. Фактический радиус конкретного поиска есть в событиях.
+dm_gigs_performers,preferred_weekly_hours,int,no,"Желаемая продолжительность подработки в неделю, часы.","Предпочтение пользователя, а не фактическая занятость."
+dm_gigs_performers,has_car,boolean,no,"Наличие автомобиля, указанное в профиле.",1 — есть; 0 — нет.
+dm_gigs_performers,acquisition_channel,string,no,Канал привлечения при регистрации.,organic — органический; paid_search — платный поиск; referral — рекомендация; paid_social — платные социальные сети. Не является источником каждой последующей сессии.
+dm_gigs_performers,acquisition_source,string,no,Источник привлечения при регистрации.,"avito_internal; search_ads; friend_invite; social_ads. Более подробная группировка источника, связанная с acquisition_channel."
+dm_gigs_performers,campaign_id,string,yes,Идентификатор рекламной кампании привлечения.,Заполняется для платных каналов; NULL — кампания не задана. Строковый идентификатор.
+dm_gigs_performers,referral_performer_id,string,yes,"Исполнитель, пригласивший пользователя, если ссылка приглашения сохранена.","Внешний ключ на dm_gigs_performers.performer_id. Может отсутствовать, в том числе при канале referral."
+dm_gigs_performers,registration_platform,string,no,Платформа на момент регистрации.,android; ios; mweb — мобильная веб-версия.
+dm_gigs_performers,registration_app_version,string,no,Версия приложения на момент регистрации.,"Строка версии. Для событий после регистрации использовать версию, записанную в событии."
+dm_gigs_performers,device_price_segment,string,yes,Ценовой сегмент устройства.,budget — бюджетный; midrange — средний; premium — высокий. NULL — сегмент неизвестен.
+dm_gigs_performers,push_opt_in,boolean,no,Разрешены ли push-уведомления.,1 — разрешены; 0 — нет. Состояние профиля на срез.
+dm_gigs_performers,sms_opt_in,boolean,no,Разрешены ли SMS-уведомления.,1 — разрешены; 0 — нет. Состояние профиля на срез.
+dm_gigs_performers,marketing_opt_in,boolean,no,Указано ли согласие на маркетинговые сообщения.,1 — согласие есть; 0 — нет. Учебный атрибут профиля.
+dm_gigs_performers,phone_verified_at,timestamp,yes,Момент подтверждения телефона.,NULL — подтверждение не зафиксировано к срезу.
+dm_gigs_performers,profile_completed_at,timestamp,yes,Момент завершения заполнения профиля.,NULL — завершение не зафиксировано к срезу.
+dm_gigs_performers,identity_started_at,timestamp,yes,Момент начала первой попытки проверки личности.,NULL — проверка не начата к срезу. Повторные попытки отражены в событиях.
+dm_gigs_performers,identity_verified_at,timestamp,yes,Момент успешного подтверждения личности.,NULL — успешного подтверждения к срезу нет. Для исторического анализа сравнивать с моментом исследуемого действия.
+dm_gigs_performers,identity_status_at_snapshot,string,no,Состояние проверки личности на срез.,not_started — не начата; pending — ожидается результат; failed — последняя попытка неуспешна; verified — личность подтверждена.
+dm_gigs_performers,identity_verification_method,string,no,"Метод проверки личности, указанный в профиле.","gosuslugi — через Госуслуги; document_upload — загрузка документа. Наличие метода не означает, что проверка уже начата."
+dm_gigs_performers,identity_attempts_cnt,int,no,"Число начатых попыток проверки личности, известных на срез.",Включает попытки до периода и незавершённую попытку; не равно числу ошибок.
+dm_gigs_performers,identity_last_error_code,string,yes,"Код последней ошибки, если личность не подтверждена.",provider_request_timeout; document_unreadable; provider_unavailable. После успешной проверки NULL; также NULL при отсутствии зафиксированной ошибки.
+dm_gigs_performers,payout_account_added_at,timestamp,yes,Момент добавления реквизитов для выплат.,NULL — реквизиты не добавлены к срезу.
+dm_gigs_performers,medbook_verified_at,timestamp,yes,Момент подтверждения медицинской книжки.,NULL — подтверждённой медкнижки к срезу нет.
+dm_gigs_performers,medbook_valid_until,date,yes,Дата окончания срока действия подтверждённой медкнижки.,NULL — подтверждённая медкнижка отсутствует. Может выходить за границы периода фактов.
+dm_gigs_performers,training_completed_at,timestamp,yes,Момент прохождения вводного обучения.,NULL — прохождение не зафиксировано к срезу.
+dm_gigs_performers,completed_shifts_before_period,int,no,Число полностью завершённых смен до 2026-04-01.,Исторический счётчик для продолжения истории за пределами выгрузки. Частичный выход не считается полностью завершённой сменой.
+dm_gigs_performers,first_show_at_before_period,timestamp,yes,"Первый фактический выход за всю историю, если он произошёл до периода.",NULL — фактических выходов до 2026-04-01 не было. Это не дата регистрации.
+dm_gigs_performers,last_show_at_before_period,timestamp,yes,Последний фактический выход до 2026-04-01.,NULL — фактических выходов до периода не было.
+dm_gigs_performers,first_booking_at_in_period,timestamp,yes,Первая дата создания записи в периоде апрель–сентябрь.,Минимальный created_at по записям исполнителя из dm_gigs_bookings. Не является первой записью за всю историю.
+dm_gigs_performers,first_show_at,timestamp,yes,Первый фактический выход исполнителя за всю доступную историю.,Учитывает историю до периода и checkin_at записей с show_status=show. Включает completed и left_early. NULL — выходов ещё не было.
+dm_gigs_performers,last_show_at,timestamp,yes,Последний фактический выход за всю доступную историю на срез.,Учитывает историю до периода и фактические выходы внутри периода. NULL — выходов ещё не было.
+dm_gigs_performers,booking_count_period,int,no,Число созданных записей исполнителя в апреле–сентябре.,"Все конечные статусы, в том числе отмены и записи на опубликованные будущие смены. Клик без созданной записи не учитывается."
+dm_gigs_performers,show_count_period,int,no,Число фактических выходов исполнителя в периоде.,Число записей с show_status=show. Включает completed и left_early.
+dm_gigs_performers,completed_shifts_period,int,no,Число полностью завершённых смен в периоде.,Только записи со status=completed. left_early не входит.
+dm_gigs_performers,completed_shifts_lifetime,int,no,Число полностью завершённых смен за всю историю на срез.,completed_shifts_before_period + completed_shifts_period. Финальный счётчик; не подставлять как опыт на дату ранней записи.
+dm_gigs_performers,total_paid_in_period_rub,float,no,"Сумма успешных выплат исполнителю, зачисленных в периоде, руб.",Основные выплаты и бонусы за записи из набора. В расчёт входят только succeeded по settled_at; комиссии провайдера не вычитаются.
+dm_gigs_performers,last_active_at,timestamp,yes,Последнее клиентское событие исполнителя в периоде.,"Серверные события, включая выплаты, не считаются пользовательской активностью. NULL — клиентских событий в периоде нет."
+dm_gigs_performers,performer_rating_period,float,yes,Средняя оценка исполнителя работодателями за период.,"Среднее по непустым performer_rating его записей, округлено до 2 знаков. Шкала 1–5; NULL — оценок нет."
+dm_gigs_performers,performer_reviews_period_cnt,int,no,Число оценок исполнителя работодателями за период.,Знаменатель для performer_rating_period. Может быть меньше числа выходов.
+dm_gigs_performers,account_status_at_snapshot,string,no,Учебный статус активности профиля на срез.,"active — есть клиентская активность за последние 28 дней; inactive — нет такой активности, но есть история выходов; onboarding — нет такой активности и истории выходов. Это не статус блокировки аккаунта."
+dm_gigs_performers,snapshot_at,timestamp,no,"Момент, на который сформирована выгрузка.",2026-10-01T00:00:00+03:00. Финальные статусы и итоговые счётчики известны на этот момент.
+dm_gigs_shifts,shift_id,string,no,Уникальный идентификатор опубликованной смены.,Ключ dm_gigs_shifts. Одна смена может иметь несколько мест и записей.
+dm_gigs_shifts,outlet_id,string,no,Уникальный идентификатор торговой или рабочей точки.,Ключ dm_gigs_client_outlets.
+dm_gigs_shifts,client_id,string,no,Идентификатор клиента-работодателя.,Не уникален в dm_gigs_client_outlets: у клиента может быть несколько точек.
+dm_gigs_shifts,city_id,string,no,"Код города, к которому относится запись.",C01 Москва; C02 Санкт-Петербург; C03 Казань; C04 Нижний Новгород; C05 Воронеж; C06 Краснодар.
+dm_gigs_shifts,shift_date,date,no,Календарная дата начала смены.,Дата start_at в +03:00. В набор включены также заранее опубликованные смены 1–7 октября.
+dm_gigs_shifts,created_at,timestamp,no,Момент создания смены работодателем.,Может предшествовать началу шестимесячного периода.
+dm_gigs_shifts,published_at,timestamp,no,Момент публикации смены в сервисе.,Публикация происходит до среза и может быть раньше 2026-04-01.
+dm_gigs_shifts,start_at,timestamp,no,Плановое время начала смены.,Для будущих смен может быть после snapshot_at.
+dm_gigs_shifts,end_at,timestamp,no,Плановое время окончания смены.,Не является фактическим checkout исполнителя.
+dm_gigs_shifts,status,string,no,Состояние смены на срез.,"finished — плановая смена закончилась; cancelled — отменена работодателем; scheduled — запланирована. finished не гарантирует, что на смену кто-то вышел."
+dm_gigs_shifts,status_updated_at,timestamp,no,Время последнего отражённого изменения статуса смены.,Для finished — плановое окончание; cancelled — отмена; scheduled — публикация.
+dm_gigs_shifts,cancelled_at,timestamp,yes,Момент отмены всей смены работодателем.,NULL — смена не отменена к срезу. Не путать с отменой отдельной записи исполнителем.
+dm_gigs_shifts,cancellation_reason,string,yes,Причина отмены всей смены.,client_demand_change — изменился спрос работодателя. NULL — отмены нет.
+dm_gigs_shifts,role_name,string,no,Роль исполнителя на смене.,shelf_stocker — выкладка; order_picker — сборка заказов; cashier_assistant — помощь кассиру; warehouse_picker — сборка на складе; packer — упаковка; loader — погрузка; kitchen_assistant — помощь на кухне; dishwasher — мойка посуды; hall_assistant — помощь в зале; inventory_assistant — инвентаризация; sales_assistant — помощь в торговле.
+dm_gigs_shifts,role_group,string,no,Укрупнённая отрасль работы на смене.,grocery_retail — продуктовая розница; warehouse — склад; food_service — общепит; nonfood_retail — непродуктовая розница.
+dm_gigs_shifts,shift_type,string,no,"Часть дня, к которой отнесена смена.",day — начало раньше 14:00; evening — начало в 14:00 или позже.
+dm_gigs_shifts,duration_hours,int,no,"Плановая общая продолжительность смены, часы.","Разница end_at и start_at, включая перерыв."
+dm_gigs_shifts,break_minutes,int,no,"Плановая продолжительность неоплачиваемого перерыва, минуты.",Вычитается из общей продолжительности при расчёте оплачиваемых часов.
+dm_gigs_shifts,paid_hours,float,no,Плановые оплачиваемые часы одного места на смене.,duration_hours − break_minutes / 60. Фактические оплачиваемые часы находятся в записях.
+dm_gigs_shifts,capacity,int,no,Число одновременно необходимых исполнителей на смене.,"Вместимость, или число мест. Это не число уже созданных записей."
+dm_gigs_shifts,hourly_rate_rub,float,no,"Плановая ставка исполнителя за оплачиваемый час, руб.",Без бонуса. Отдельные высокие значения могут быть корректными наблюдениями.
+dm_gigs_shifts,base_pay_rub,float,no,"Базовая плановая оплата одного места при полной отработке, руб.",hourly_rate_rub × paid_hours. Не сумма по всей вместимости смены.
+dm_gigs_shifts,bonus_rub,int,no,"Объявленный размер бонуса за одно подходящее выполнение, руб.",0 — бонус не предусмотрен. Правило выплаты задаёт bonus_rule; начисленный бонус хранится в записи.
+dm_gigs_shifts,bonus_rule,string,no,Условие получения объявленного бонуса.,first_ever_show — первый фактический выход за всю историю; none — бонуса нет.
+dm_gigs_shifts,min_completed_shifts,int,no,Минимальный требуемый опыт для записи на конкретную смену.,Количество полностью завершённых смен до записи. Требование относится к этой смене; не заменять значением по умолчанию из справочника точки.
+dm_gigs_shifts,medbook_required,boolean,no,Нужна ли действующая подтверждённая медкнижка для этой смены.,1 — нужна; 0 — не нужна.
+dm_gigs_shifts,identity_required,boolean,no,Требуется ли подтверждение личности для записи.,1 — требуется; 0 — нет.
+dm_gigs_shifts,payout_account_required,boolean,no,Требуются ли добавленные реквизиты для выплат.,1 — требуются; 0 — нет.
+dm_gigs_shifts,uniform_required,boolean,no,Нужна ли рабочая форма.,1 — нужна; 0 — нет. Требование к условиям работы.
+dm_gigs_shifts,physical_load,string,no,Уровень физической нагрузки.,low — низкий; medium — средний; high — высокий.
+dm_gigs_shifts,skills_required,string,yes,"Дополнительный навык, указанный в описании смены.",cash_register_basics — основы работы с кассой; NULL — отдельный навык не указан.
+dm_gigs_shifts,confirmation_mode,string,no,Способ подтверждения записи на смену.,auto — автоматически; manual — после решения работодателя.
+dm_gigs_shifts,approval_sla_hours,float,no,"Ориентир по времени подтверждения записи, часы.","Параметр условий смены, а не фактически измеренная длительность подтверждения."
+dm_gigs_shifts,cancellation_free_before_hours,int,no,За сколько часов до начала действует свободная отмена исполнителем.,Порог относительно start_at. Поздняя отмена отмечена в dm_gigs_bookings.
+dm_gigs_shifts,checkin_method,string,no,Способ отметки о выходе на смену.,qr — QR-код; geolocation — геолокация; supervisor — подтверждение ответственным.
+dm_gigs_shifts,meal_provided,boolean,no,Предоставляется ли питание.,1 — да; 0 — нет.
+dm_gigs_shifts,is_urgent,boolean,no,Признак срочной публикации.,1 — от публикации до начала менее 48 часов; 0 — иначе.
+dm_gigs_shifts,publication_lead_hours,float,no,"Время от публикации до планового начала, часы.",start_at − published_at; округлено до 2 знаков.
+dm_gigs_shifts,distribution_channel,string,no,Способ распространения опубликованной смены.,public_catalog — каталог; catalog_and_push — каталог и push-уведомления.
+dm_gigs_shifts,application_deadline_at,timestamp,no,"Последний момент, до которого допускается запись на смену.",В этом наборе за час до start_at.
+dm_gigs_shifts,booking_requests_cnt,int,no,Количество созданных записей на смену к срезу.,Все статусы записей. Может быть больше capacity из-за освобождения места после отмены или отказа.
+dm_gigs_shifts,ever_confirmed_bookings_cnt,int,no,"Число записей, когда-либо подтверждённых до среза.","Записи с непустым confirmed_at, включая последующие отмены. Это не текущая заполненность."
+dm_gigs_shifts,show_count,int,no,Число фактических выходов на смену к срезу.,Количество записей с show_status=show; completed и left_early.
+dm_gigs_shifts,performer_cancelled_cnt,int,no,Число записей со статусом отмены исполнителем на срез.,status=performer_cancelled в dm_gigs_bookings.
+dm_gigs_shifts,employer_cancelled_cnt,int,no,Число записей со статусом отмены работодателем на срез.,status=employer_cancelled. Отказы employer_rejected сюда не входят.
+dm_gigs_shifts,no_show_count,int,no,Число зафиксированных невыходов на смену.,status=no_show. Незавершённые и неразобранные статусы не входят.
+dm_gigs_shifts,worked_hours_total,float,no,"Сумма фактически отработанного времени всех исполнителей смены, часы.","Сумма actual_worked_hours записей, включая перерывы; округлено до 2 знаков."
+dm_gigs_shifts,snapshot_at,timestamp,no,"Момент, на который сформирована выгрузка.",2026-10-01T00:00:00+03:00. Финальные статусы и итоговые счётчики известны на этот момент.
+dm_gigs_client_outlets,outlet_id,string,no,Уникальный идентификатор торговой или рабочей точки.,Ключ dm_gigs_client_outlets.
+dm_gigs_client_outlets,client_id,string,no,Идентификатор клиента-работодателя.,Не уникален в dm_gigs_client_outlets: у клиента может быть несколько точек.
+dm_gigs_client_outlets,client_name,string,no,Вымышленное название клиента-работодателя.,Клиентские атрибуты повторяются в строках его точек.
+dm_gigs_client_outlets,synthetic_tax_id,string,no,Заведомо вымышленный налоговый идентификатор клиента.,Формат SYN-INN-XXXXXX. Не настоящий ИНН и не подходит для проверки реальных компаний.
+dm_gigs_client_outlets,legal_form,string,no,Условная организационная форма клиента.,ooo — ООО; ip — ИП.
+dm_gigs_client_outlets,client_segment,string,no,Размер клиента по учебной сегментации.,small — небольшой; medium — средний; enterprise — крупный.
+dm_gigs_client_outlets,industry,string,no,Отрасль клиента.,grocery_retail — продуктовая розница; warehouse — склад; food_service — общепит; nonfood_retail — непродуктовая розница.
+dm_gigs_client_outlets,brand_id,string,no,Условный идентификатор торговой сети или бренда клиента.,Повторяется во всех точках сети; не является ключом строки витрины.
+dm_gigs_client_outlets,brand_name,string,no,Вымышленное название сети.,Не относится к реальным торговым сетям.
+dm_gigs_client_outlets,network_size,int,no,Количество точек клиента в данном наборе.,Повторено в каждой точке клиента. Не суммировать по строкам точек.
+dm_gigs_client_outlets,client_joined_at,timestamp,no,Дата подключения клиента к сервису.,Может быть до периода фактов.
+dm_gigs_client_outlets,contract_started_at,timestamp,no,Дата начала действия договора клиента.,"Клиентский атрибут, повторяющийся во всех его точках."
+dm_gigs_client_outlets,contract_type,string,no,Тип договора с клиентом.,standard — стандартный; volume — условия с учётом объёма.
+dm_gigs_client_outlets,account_manager_team,string,no,Условная команда сопровождения клиента.,team_a; team_b; team_c.
+dm_gigs_client_outlets,platform_fee_pct,float,no,Договорная ставка комиссии платформы в долях единицы.,"Например, 0.12 означает 12%. Витрина выплат не является витриной выручки платформы; ставка сама по себе не подтверждает начисленную комиссию."
+dm_gigs_client_outlets,invoice_terms_days,int,no,"Срок оплаты счёта клиентом по договору, дни.",Договорный параметр; фактические оплаты клиентов в dm_gigs_payments не представлены.
+dm_gigs_client_outlets,client_payment_method,string,no,Договорная схема расчётов с клиентом.,prepaid_balance — предоплаченный баланс; monthly_invoice — ежемесячный счёт.
+dm_gigs_client_outlets,contact_email,string,no,Вымышленная контактная почта клиента.,Адреса на example.test. Контактная информация предназначена только для учебного набора.
+dm_gigs_client_outlets,outlet_name,string,no,Вымышленное название торговой или рабочей точки.,Одна строка витрины соответствует одной точке.
+dm_gigs_client_outlets,outlet_opened_at,timestamp,no,Условная дата открытия точки.,Может быть раньше подключения клиента к сервису.
+dm_gigs_client_outlets,outlet_connected_at,timestamp,no,Момент подключения точки к сервису.,Не все точки обязаны участвовать во всём шестимесячном периоде.
+dm_gigs_client_outlets,outlet_status_at_snapshot,string,no,Состояние точки на срез.,active — активная. Не является историческим статусом на каждую дату периода.
+dm_gigs_client_outlets,city_id,string,no,"Код города, к которому относится запись.",C01 Москва; C02 Санкт-Петербург; C03 Казань; C04 Нижний Новгород; C05 Воронеж; C06 Краснодар.
+dm_gigs_client_outlets,city,string,no,Название города.,Соответствует city_id.
+dm_gigs_client_outlets,region,string,no,Название субъекта РФ.,Географический атрибут города.
+dm_gigs_client_outlets,district_code,string,no,Условный код района расположения точки.,Синтетический классификатор вида C01-D01.
+dm_gigs_client_outlets,latitude,float,no,"Широта условного местоположения точки, градусы.",Синтетические координаты в окрестности города; не координаты реальной организации.
+dm_gigs_client_outlets,longitude,float,no,"Долгота условного местоположения точки, градусы.",Синтетические координаты в окрестности города.
+dm_gigs_client_outlets,address_synthetic,string,no,Заведомо вымышленный адрес точки.,Не использовать для поиска реальных компаний или геокодирования.
+dm_gigs_client_outlets,outlet_area_sqm,int,no,"Условная площадь точки, квадратные метры.",Атрибут размера рабочей площадки.
+dm_gigs_client_outlets,workplace_type,string,no,Тип рабочей площадки.,warehouse — склад; restaurant — общепит; store — торговая точка.
+dm_gigs_client_outlets,opening_hour,int,no,Час начала работы точки по местному расписанию.,0–23; указаны целые часы.
+dm_gigs_client_outlets,closing_hour,int,no,Час окончания работы точки по местному расписанию.,24 означает конец суток. Вместе с opening_hour=0 соответствует круглосуточной работе.
+dm_gigs_client_outlets,is_24h,boolean,no,Работает ли точка круглосуточно.,1 — да; 0 — нет.
+dm_gigs_client_outlets,parking_available,boolean,no,Наличие парковки у точки.,1 — есть; 0 — нет.
+dm_gigs_client_outlets,walk_from_transport_minutes,int,no,"Ориентировочное время пешком от транспорта до точки, минуты.","Характеристика доступности точки, не маршрут конкретного исполнителя."
+dm_gigs_client_outlets,has_locker,boolean,no,Есть ли место для хранения личных вещей.,1 — есть; 0 — нет.
+dm_gigs_client_outlets,has_break_room,boolean,no,Есть ли помещение для перерывов.,1 — есть; 0 — нет.
+dm_gigs_client_outlets,requires_uniform,boolean,no,"Требование рабочей формы, заданное для точки по умолчанию.",1 — требуется; 0 — нет. Для конкретной смены использовать uniform_required.
+dm_gigs_client_outlets,default_medbook_required,boolean,no,"Требование медкнижки, заданное для точки по умолчанию.",1 — нужна; 0 — нет. Для конкретной смены использовать medbook_required.
+dm_gigs_client_outlets,default_min_completed_shifts,int,no,Минимальное число завершённых смен в настройках точки по умолчанию.,Не обязательно совпадает с требованием конкретной смены. Для проверки допуска использовать dm_gigs_shifts.min_completed_shifts.
+dm_gigs_client_outlets,default_confirmation_mode,string,no,Способ подтверждения записей в настройках точки по умолчанию.,auto — автоматически; manual — решение работодателя. У конкретной смены есть собственное confirmation_mode.
+dm_gigs_client_outlets,headcount_band,string,no,Условная группа численности персонала точки.,1_20; 21_50; 51_100; 101_plus. Не число заказанных через сервис исполнителей.
+dm_gigs_client_outlets,outlet_rating_period,float,yes,Средняя оценка работодателя на этой точке исполнителями за период.,"Среднее по непустым employer_rating записей точки, округлено до 2 знаков. Шкала 1–5; NULL — оценок нет."
+dm_gigs_client_outlets,outlet_reviews_period_cnt,int,no,Количество оценок работодателя на этой точке за период.,Знаменатель для outlet_rating_period. Может быть меньше числа выходов.
+dm_gigs_client_outlets,snapshot_at,timestamp,no,"Момент, на который сформирована выгрузка.",2026-10-01T00:00:00+03:00. Финальные статусы и итоговые счётчики известны на этот момент.
+dm_gigs_bookings,booking_id,string,no,Уникальный идентификатор записи исполнителя на смену.,Ключ dm_gigs_bookings. Отклонённый до создания записи клик не создаёт booking_id.
+dm_gigs_bookings,performer_id,string,no,Уникальный идентификатор исполнителя.,Ключ dm_gigs_performers. Идентификатор хранится как строка.
+dm_gigs_bookings,shift_id,string,no,Уникальный идентификатор опубликованной смены.,Ключ dm_gigs_shifts. Одна смена может иметь несколько мест и записей.
+dm_gigs_bookings,outlet_id,string,no,Уникальный идентификатор торговой или рабочей точки.,Ключ dm_gigs_client_outlets.
+dm_gigs_bookings,client_id,string,no,Идентификатор клиента-работодателя.,Не уникален в dm_gigs_client_outlets: у клиента может быть несколько точек.
+dm_gigs_bookings,city_id,string,no,"Код города, к которому относится запись.",C01 Москва; C02 Санкт-Петербург; C03 Казань; C04 Нижний Новгород; C05 Воронеж; C06 Краснодар.
+dm_gigs_bookings,created_at,timestamp,no,Момент создания записи исполнителя на смену.,В пределах 2026-04-01 включительно — 2026-10-01 исключительно. Клик с блокирующей ошибкой не создаёт запись.
+dm_gigs_bookings,source_session_id,string,no,"Идентификатор сессии, в которой создана запись.",Соответствует session_id событий. События могут продолжать ссылаться на исходную сессию при последующих изменениях записи.
+dm_gigs_bookings,booking_source,string,no,"Источник сессии, приведшей к записи.",organic; paid_search; referral; paid_social; direct; push; recommendation. Может отличаться от канала регистрации.
+dm_gigs_bookings,platform,string,no,"Платформа, зарегистрированная для действия.",android; ios; mweb — мобильная веб-версия.
+dm_gigs_bookings,app_version,string,no,"Версия приложения или веб-версии, записанная для действия.",Строка версии; не число. Для веб-версии используется префикс web_.
+dm_gigs_bookings,confirmation_mode,string,no,Способ подтверждения записи на смену.,auto — автоматически; manual — после решения работодателя.
+dm_gigs_bookings,confirmed_at,timestamp,yes,Момент подтверждения записи.,NULL — до среза не подтверждена. Заполненное поле сохраняется при последующей отмене.
+dm_gigs_bookings,rejected_at,timestamp,yes,Момент отказа работодателя в подтверждении.,NULL — отказ не зафиксирован к срезу.
+dm_gigs_bookings,status,string,no,Состояние записи на срез.,"completed — смена полностью завершена; left_early — вышел и ушёл досрочно; no_show — зафиксирован невыход; performer_cancelled — отменил исполнитель; employer_cancelled — отменил работодатель; employer_rejected — работодатель отказал в подтверждении; confirmed — запись подтверждена, итог выхода ещё не наблюдён; pending_confirmation — ожидает подтверждения; awaiting_report — ожидает окончательного отчёта по выходу."
+dm_gigs_bookings,status_updated_at,timestamp,no,Время последнего отражённого статуса записи.,Исторические переходы следует восстанавливать по отдельным датам и событиям; одна строка не является журналом статусов.
+dm_gigs_bookings,cancelled_at,timestamp,yes,Момент отмены отдельной записи.,NULL — отмены нет. Отказ в подтверждении отдельно отражён в rejected_at.
+dm_gigs_bookings,cancelled_by,string,yes,Кто отменил запись.,performer — исполнитель; employer — работодатель; NULL — отмены не было.
+dm_gigs_bookings,cancellation_reason,string,yes,Причина отмены или отказа работодателя.,personal_plans — личные планы; schedule_conflict — конфликт расписания; distance — расстояние; health — здоровье; not_specified — не указана; client_demand_change — изменение спроса; profile_not_selected — анкета не выбрана. Последнее относится к отказу employer_rejected.
+dm_gigs_bookings,is_late_cancel,boolean,no,Поздняя отмена записи исполнителем.,"1 — исполнитель отменил менее чем за 24 часа до scheduled_start_at; 0 — иначе, включая отмену работодателем и отсутствие отмены."
+dm_gigs_bookings,scheduled_start_at,timestamp,no,Плановое начало смены по записи.,Соответствует start_at связанной смены; может быть после среза.
+dm_gigs_bookings,scheduled_end_at,timestamp,no,Плановое окончание смены по записи.,Соответствует end_at связанной смены.
+dm_gigs_bookings,checkin_at,timestamp,yes,Момент фактической отметки исполнителя о выходе.,Заполняется при show_status=show. Используется для даты первого фактического выхода.
+dm_gigs_bookings,checkout_at,timestamp,yes,Момент фактического окончания работы исполнителя.,Заполняется при completed или left_early. Наличие checkout не означает полную отработку смены.
+dm_gigs_bookings,show_status,string,no,Укрупнённый исход выхода на смену.,"show — фактически вышел, включая досрочный уход; no_show — зафиксирован невыход; cancelled — отмена или отказ; unknown — результат выхода пока неизвестен."
+dm_gigs_bookings,actual_worked_hours,float,no,"Фактическое время между checkin_at и checkout_at, часы.",Включает перерыв. Для записей без фактического выхода равно 0; округлено до 2 знаков.
+dm_gigs_bookings,paid_worked_hours,float,no,"Фактически оплачиваемые часы, за вычетом перерыва.",Основа расчёта base_earning_rub. Для записей без фактического выхода равно 0.
+dm_gigs_bookings,lateness_minutes,float,no,"Опоздание относительно планового начала, минуты.",0 — нет положительного опоздания или фактического выхода. Для интерпретации фильтровать show_status.
+dm_gigs_bookings,early_leave_minutes,float,no,"Досрочный уход относительно планового окончания, минуты.",Положительное значение при left_early; 0 — иначе.
+dm_gigs_bookings,completed_shifts_before_booking,int,no,Число полностью завершённых смен строго до создания записи.,История до периода и только status=completed с checkout_at раньше created_at этой записи. Не равно числу фактических выходов и финальному lifetime-счётчику.
+dm_gigs_bookings,is_identity_verified_at_booking,boolean,no,Была ли подтверждена личность на момент записи.,"1 — подтверждена; 0 — нет. Историческое состояние, а не финальный статус профиля."
+dm_gigs_bookings,is_medbook_valid_at_booking,boolean,no,Была ли действующая подтверждённая медкнижка на момент записи.,1 — была; 0 — нет. Отсутствие допустимо для смен без такого требования.
+dm_gigs_bookings,is_payout_account_ready_at_booking,boolean,no,Были ли готовы реквизиты для выплат на момент записи.,1 — готовы; 0 — нет. Исторический признак.
+dm_gigs_bookings,distance_km,float,no,"Оценка расстояния от исполнителя до точки, км.","Рассчитана по условным координатам, не по дорожному маршруту."
+dm_gigs_bookings,estimated_commute_minutes,int,no,"Условная оценка времени до точки, минуты.",Учитывает расстояние и наличие автомобиля; не фактически измеренная поездка.
+dm_gigs_bookings,notification_sent_at,timestamp,yes,Момент отправки напоминания о смене.,NULL — отправка к срезу не зафиксирована.
+dm_gigs_bookings,reminder_channel,string,no,Выбранный канал напоминания.,push; sms; in_app. Само значение канала не подтверждает отправку: проверять notification_sent_at.
+dm_gigs_bookings,reminder_delivered,boolean,yes,Результат доставки отправленного напоминания.,1 — доставлено; 0 — не доставлено; NULL — отправки не было.
+dm_gigs_bookings,employer_rating,int,yes,"Оценка работодателя, выставленная исполнителем по этой записи.",Шкала 1–5. NULL — оценки нет. Входит в рейтинг точки.
+dm_gigs_bookings,performer_rating,int,yes,"Оценка исполнителя, выставленная работодателем по этой записи.",Шкала 1–5. NULL — оценки нет. Входит в рейтинг исполнителя.
+dm_gigs_bookings,first_reviewed_at,timestamp,yes,Момент появления первой оценки по записи.,NULL — ни одной оценки нет к срезу.
+dm_gigs_bookings,dispute_status,string,no,Состояние обращения по спору по записи.,open — открыто; none — спора не зафиксировано.
+dm_gigs_bookings,dispute_created_at,timestamp,yes,Дата создания спора по записи.,NULL — спора не зафиксировано.
+dm_gigs_bookings,base_earning_rub,float,no,"Начисленная базовая оплата за фактически оплачиваемые часы, руб.","paid_worked_hours × ставка смены, округлено до копеек. Не означает, что деньги уже зачислены."
+dm_gigs_bookings,bonus_earning_rub,float,no,"Начисленный бонус по записи, руб.",Фактически назначенный бонус; может отличаться от объявленного bonus_rub смены из-за условий участия.
+dm_gigs_bookings,deduction_rub,float,no,"Удержание из базового начисления, руб.","Неотрицательная сумма, вычитается. В учебных данных применяется за опоздание свыше 20 минут при фактическом выходе."
+dm_gigs_bookings,expected_payout_rub,float,no,"Итоговое начисление к выплате по записи, руб.","base_earning_rub + bonus_earning_rub − deduction_rub. Для непрошедшей будущей смены начисление равно 0, это не прогноз оплаты."
+dm_gigs_bookings,paid_amount_in_period_rub,float,no,"Сумма успешных выплат по записи, зачисленных в периоде, руб.","Сумма amount_rub по succeeded, включая бонусы. Может быть меньше начисления из-за незавершённой выплаты на срез."
+dm_gigs_bookings,snapshot_at,timestamp,no,"Момент, на который сформирована выгрузка.",2026-10-01T00:00:00+03:00. Финальные статусы и итоговые счётчики известны на этот момент.
+dm_gigs_payments,payment_id,string,no,Уникальный идентификатор попытки выплаты.,"Первичный ключ строки. Не путать с operation_id, объединяющим повторные попытки одной выплаты."
+dm_gigs_payments,operation_id,string,no,Идентификатор логической денежной операции.,Одинаков у повторных попыток одной выплаты. Базовая выплата и бонус по одной записи имеют разные operation_id.
+dm_gigs_payments,booking_id,string,no,Уникальный идентификатор записи исполнителя на смену.,Ключ dm_gigs_bookings. Отклонённый до создания записи клик не создаёт booking_id.
+dm_gigs_payments,shift_id,string,no,Уникальный идентификатор опубликованной смены.,Ключ dm_gigs_shifts. Одна смена может иметь несколько мест и записей.
+dm_gigs_payments,performer_id,string,no,Уникальный идентификатор исполнителя.,Ключ dm_gigs_performers. Идентификатор хранится как строка.
+dm_gigs_payments,client_id,string,no,Идентификатор клиента-работодателя.,Не уникален в dm_gigs_client_outlets: у клиента может быть несколько точек.
+dm_gigs_payments,outlet_id,string,no,Уникальный идентификатор торговой или рабочей точки.,Ключ dm_gigs_client_outlets.
+dm_gigs_payments,payment_type,string,no,Основание выплаты исполнителю.,shift_payout — базовая оплата смены за вычетом удержаний; first_shift_bonus — бонус за первый фактический выход.
+dm_gigs_payments,direction,string,no,Направление движения средств.,to_performer — исполнителю. Платежи работодателей в наборе не представлены.
+dm_gigs_payments,created_at,timestamp,no,Момент создания данной попытки выплаты.,У повторной попытки своя дата создания. Может быть позже даты создания логической операции.
+dm_gigs_payments,scheduled_at,timestamp,no,Запланированное время отправки данной попытки в обработку.,Может быть после среза у ожидающих выплат.
+dm_gigs_payments,processed_at,timestamp,yes,Момент зафиксированного результата обработки провайдером.,"Может заполняться у failed, succeeded и processing. NULL — момент ещё не зафиксирован к срезу."
+dm_gigs_payments,settled_at,timestamp,yes,Момент успешного зачисления денег исполнителю.,Заполняется только при succeeded. Для анализа денежных выплат использовать эту дату.
+dm_gigs_payments,status,string,no,Состояние данной попытки выплаты на срез.,succeeded — зачислена; failed — неуспешная попытка; scheduled — запланирована; processing — обрабатывается или ожидает зачисления.
+dm_gigs_payments,amount_rub,float,no,"Сумма данной логической выплаты, повторённая в попытке, руб.",Нельзя суммировать все попытки. Для фактически выплаченной суммы брать succeeded; по operation_id не более одной успешной попытки.
+dm_gigs_payments,currency,string,no,Код валюты.,RUB — российский рубль.
+dm_gigs_payments,attempt_number,int,no,Порядковый номер попытки внутри операции.,Начиная с 1. Повторная попытка не является новым начислением.
+dm_gigs_payments,previous_payment_id,string,yes,Идентификатор предыдущей попытки той же операции.,Внешний ключ на dm_gigs_payments.payment_id. NULL у первой попытки.
+dm_gigs_payments,provider,string,no,Условный платёжный провайдер.,provider_a; provider_b; provider_c. Не названия реальных компаний.
+dm_gigs_payments,payment_method,string,no,"Способ выплаты, указанный для попытки.",sbp — СБП; bank_account — банковский счёт.
+dm_gigs_payments,failure_reason,string,yes,Причина неуспеха попытки.,bank_timeout — банк не ответил вовремя; provider_temporary_error — временная ошибка провайдера; balance_not_available — средства недоступны. NULL для остальных статусов.
+dm_gigs_payments,bank_code,string,no,Вымышленный код банка получателя.,"Формат SYNBANKn, не настоящий БИК."
+dm_gigs_payments,payout_batch_id,string,no,Условный идентификатор пакета обработки выплат.,Связан с плановой датой и провайдером. Не уникален.
+dm_gigs_payments,provider_transaction_id,string,yes,Вымышленный номер успешной транзакции у провайдера.,Заполняется только при succeeded.
+dm_gigs_payments,processing_fee_rub,float,no,"Комиссия за проведение успешной выплаты, руб.",Отдельный расход обработки; не вычитается из amount_rub. Для неуспешных и ожидающих попыток 0.
+dm_gigs_payments,promised_delay_hours,int,no,"Обещанный срок зачисления от checkout_at, часы.",Условие начисления: 24 часа для имевших завершённые смены до периода; 48 часов для остальных. Не отсчитывается от повторной попытки.
+dm_gigs_payments,sla_deadline_at,timestamp,no,Предельный срок зачисления по обещанному SLA.,checkout_at + promised_delay_hours. Общий срок логической выплаты не сдвигается при retry.
+dm_gigs_payments,settlement_delay_hours,float,yes,"Фактическое время от окончания работы до зачисления, часы.",settled_at − checkout_at; округлено до 3 знаков. NULL до успешного зачисления.
+dm_gigs_payments,is_late,boolean,no,Просрочена ли зафиксированная попытка относительно срока выплаты.,Для succeeded: settled_at позже sla_deadline_at. Для scheduled/processing: срок уже прошёл к срезу. Для failed равно 0; провал попытки отдельно задаёт status.
+dm_gigs_payments,retryable,boolean,no,Допускается ли повторная попытка после текущей ошибки.,"1 для failed; 0 для остальных. Не означает, что повторная попытка уже произошла; проверить следующий payment_id по operation_id."
+dm_gigs_payments,source_system,string,no,Система-источник записи о выплате.,synthetic_payout_engine — условная система учебного набора.
+dm_gigs_payments,reconciliation_status,string,no,Состояние сверки факта зачисления.,matched — успешная выплата сверена; not_settled — зачисление отсутствует.
+dm_gigs_payments,record_updated_at,timestamp,no,Последнее время обновления данной строки выплаты до среза.,"Зачисление, обработка либо создание попытки — последнее доступное состояние."
+dm_gigs_payments,snapshot_at,timestamp,no,"Момент, на который сформирована выгрузка.",2026-10-01T00:00:00+03:00. Финальные статусы и итоговые счётчики известны на этот момент.
+dm_gigs_events,event_row_id,string,no,Уникальный идентификатор строки доставки события.,Первичный ключ витрины. Повторная доставка получает новый event_row_id.
+dm_gigs_events,event_id,string,no,Идентификатор логического события.,Может повторяться при повторной доставке. Для дедупликации использовать event_id; события с разными event_id не являются дублями только из-за сходства полей.
+dm_gigs_events,event_at,timestamp,no,Момент совершения события.,Основная временная ось поведения. Все события в интервале 2026-04-01 включительно — 2026-10-01 исключительно.
+dm_gigs_events,received_at,timestamp,no,Момент получения данной доставки события.,Может быть позже event_at; у повторных доставок различается. Порядок строк в CSV не является хронологическим.
+dm_gigs_events,performer_id,string,yes,"Идентификатор зарегистрированного исполнителя, связанного с событием.",Внешний ключ на dm_gigs_performers. NULL у анонимных посещений; их нельзя автоматически считать новыми регистрациями.
+dm_gigs_events,anonymous_id,string,no,Условный идентификатор посетителя или устройства.,Доступен и при пустом performer_id. Не использовать как подтверждённый идентификатор зарегистрированного исполнителя.
+dm_gigs_events,session_id,string,no,Идентификатор связанного контекста действий.,"Поиск имеет префикс SES; онбординг ON; анонимный визит VS. Последующие события записи могут хранить исходный контекст. Для аналитической сессии с таймаутом, например 30 минут, самостоятельно сессионизируйте клиентские события."
+dm_gigs_events,event_name,string,no,Название действия или серверного факта.,landing_view — анонимное посещение; app_open — открытие сервиса; registration_completed — регистрация; phone_verified — подтверждение телефона; profile_completed — заполнение профиля; identity_started — начало попытки проверки личности; identity_submitted — отправка запроса проверки; identity_verified — успешная проверка; identity_error — ошибка проверки; payout_account_added — добавление реквизитов; medbook_verified — подтверждение медкнижки; search_results — поисковая выдача; empty_search_results — пустая выдача; shift_impression — показ карточки; shift_view — просмотр карточки; favorite_click — добавление в избранное; apply_click — нажатие кнопки записи; apply_error — блокирующая ошибка записи; booking_created — запись создана; booking_confirmed — запись подтверждена; booking_rejected — отказ в подтверждении; booking_cancelled — отмена записи; shift_checkin — отметка о фактическом выходе; shift_checkout — окончание работы; shift_no_show — зафиксированный невыход; payout_succeeded — успешное зачисление; payout_failed — неуспешная попытка выплаты.
+dm_gigs_events,event_source,string,no,Источник регистрации события.,client — клиентская телеметрия; server — серверный факт. server не обязательно означает активное действие пользователя в этот момент.
+dm_gigs_events,screen_name,string,no,Укрупнённый экран или контекст события.,"onboarding — оформление профиля; shift_details — карточка смены; catalog — каталог или общий контекст. У серверного события это технический контекст, не доказательство просмотра экрана."
+dm_gigs_events,element_name,string,yes,"Элемент интерфейса, связанный с действием.",apply_button — кнопка записи при apply_click. NULL — отдельный элемент не задан.
+dm_gigs_events,platform,string,no,"Платформа, зарегистрированная для действия.",android; ios; mweb — мобильная веб-версия.
+dm_gigs_events,app_version,string,no,"Версия приложения или веб-версии, записанная для действия.",Строка версии; не число. Для веб-версии используется префикс web_.
+dm_gigs_events,device_os_version,string,yes,"Версия ОС, указанная в телеметрии события.",Строковый атрибут. NULL для mweb; не является версией приложения.
+dm_gigs_events,device_type,string,no,Тип устройства или интерфейса.,smartphone — мобильное приложение; mobile_web — мобильная веб-версия.
+dm_gigs_events,network_type,string,no,Тип подключения в телеметрии.,wifi; 4g; 5g; unknown — неизвестен.
+dm_gigs_events,city_id,string,no,"Код города, к которому относится запись.",C01 Москва; C02 Санкт-Петербург; C03 Казань; C04 Нижний Новгород; C05 Воронеж; C06 Краснодар.
+dm_gigs_events,session_source,string,no,"Источник входа, указанный в событии.","Может отражать канал привлечения, direct, push или recommendation. У серверных и служебных событий возможен direct по умолчанию; для источника записи есть booking_source."
+dm_gigs_events,campaign_id,string,yes,"Кампания, переданная в конкретном событии.",NULL — атрибут не передан или к событию неприменим. Не обязана повторяться во всех событиях пользователя или сессии.
+dm_gigs_events,utm_source,string,yes,"Источник из параметров привлечения, переданный в событии.",avito_internal; search_ads; friend_invite; social_ads. NULL — атрибут отсутствует или неприменим.
+dm_gigs_events,shift_id,string,yes,"Смена, к которой относится событие.",Внешний ключ на dm_gigs_shifts; NULL для событий без конкретной смены.
+dm_gigs_events,booking_id,string,yes,"Запись, к которой относится событие.",Внешний ключ на dm_gigs_bookings. До booking_created и при блокирующей ошибке записи может не быть.
+dm_gigs_events,outlet_id,string,yes,"Точка, к которой относится конкретная смена в событии.",Внешний ключ на dm_gigs_client_outlets; NULL для событий без конкретной точки.
+dm_gigs_events,search_request_id,string,yes,"Идентификатор поискового запроса, породившего выдачу.","Повторяется в показах, просмотрах и действиях, связанных с запросом. NULL вне поискового контекста."
+dm_gigs_events,search_radius_km,int,yes,"Радиус, использованный для данного поиска, км.",NULL вне поискового контекста.
+dm_gigs_events,search_results_count,int,yes,Число смен в доступной для просмотра поисковой выдаче на момент запроса.,"После географии, времени публикации, наличия свободных мест и пересечений расписания; до проверки требований опыта и медкнижки. Это число смен, а не суммарная capacity."
+dm_gigs_events,eligible_results_count,int,yes,"Число смен в выдаче, подходящих по опыту и медкнижке.","Не включает проверку подтверждения личности и платёжных реквизитов, поэтому не гарантирует возможность немедленной записи. NULL вне поискового контекста; 0 — ни одной подходящей смены."
+dm_gigs_events,sort_order,string,yes,Выбранный порядок сортировки выдачи.,recommended — рекомендованный; distance — по расстоянию; hourly_rate — по ставке. NULL вне поискового контекста.
+dm_gigs_events,applied_filters,string,yes,Метка выбранного дополнительного фильтра в телеметрии.,"day_shift — дневная смена; high_pay — высокая оплата. NULL — дополнительная метка фильтра не передана. Считать телеметрическим атрибутом, а не полным описанием поискового алгоритма."
+dm_gigs_events,distance_to_outlet_km,float,yes,"Расстояние до конкретной точки в контексте события, км.","Синтетическая оценка по координатам. NULL, когда конкретная карточка или расстояние не указаны."
+dm_gigs_events,hourly_rate_shown_rub,float,yes,"Часовая ставка, показанная для конкретной смены, руб.",NULL для событий без такого атрибута. Относится к моменту показа.
+dm_gigs_events,position_in_results,int,yes,Зафиксированная позиция карточки в поисковом контексте.,"Нумерация с 1. NULL вне карточки/выдачи. Набор содержит телеметрию части показов, а не полный перечень карточек каждого поиска."
+dm_gigs_events,identity_verified_at_event,boolean,yes,Была ли личность уже подтверждена к моменту события.,"Несмотря на суффикс _at_event, это флаг 0/1, не дата. NULL для анонимного посетителя."
+dm_gigs_events,completed_shifts_before_event,int,yes,Число полностью завершённых смен строго до event_at.,"История до периода и status=completed с checkout_at раньше event_at. Передаётся для событий с поисковым контекстом. NULL — атрибут не передан, а не отсутствие опыта; не подставлять финальный lifetime-счётчик."
+dm_gigs_events,error_code,string,yes,Код ошибки или причины отказа/отмены в событии.,"NULL — код не передан или неприменим. Проверка личности: provider_request_timeout — истекло ожидание ответа; document_unreadable — документ не читается; provider_unavailable — провайдер недоступен. Запись: identity_required — нужна проверка личности; payout_account_required — нужны реквизиты; experience_requirement — недостаточно завершённых смен; medbook_required — нужна действующая медкнижка. Выплаты: bank_timeout — банк не ответил вовремя; provider_temporary_error — временная ошибка; balance_not_available — средства недоступны. Для booking_cancelled/booking_rejected код содержит причину, расшифрованную в dm_gigs_bookings.cancellation_reason."
+dm_gigs_events,response_time_ms,int,no,"Длительность ответа, записанная в телеметрии, миллисекунды.",Для результата проверки личности — время от начала соответствующей попытки до результата. Сравнивать одинаковые типы событий; показатель не является единым временем отклика всего приложения.
+dm_gigs_events,experiment_key,string,yes,"Идентификатор учебного эксперимента, если назначение передано.",card_badge_test. NULL — назначение не задано. Наличие назначения само по себе не подтверждает показ варианта в каждом событии.
+dm_gigs_events,experiment_variant,string,yes,Назначенный вариант учебного эксперимента.,A или B; NULL при отсутствии experiment_key.
+dm_gigs_events,schema_version,string,no,"Версия схемы телеметрии, указанная в событии.",v1; v2. Не версия приложения.
+dm_gigs_events,snapshot_at,timestamp,no,"Момент, на который сформирована выгрузка.",2026-10-01T00:00:00+03:00. Финальные статусы и итоговые счётчики известны на этот момент.
